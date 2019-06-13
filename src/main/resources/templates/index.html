@@ -5,7 +5,16 @@
     <title>Recipe Book</title>
 </head>
 <body>
-    <h1 th:text="Test">My Recipes Changed woooommmm meowwwww kooii!</h1>
-
+    <h1 th:text="'My Recipes!!!'">My Recipes!!!</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="recipe:${recipeList}">
+            <td th:text="${recipe.id}"></td>
+            <td th:text="${recipe.description}"></td>
+        </tr>
+    </table>
 </body>
 </html>
