@@ -4,15 +4,18 @@ import com.learning.recipebook.domain.*;
 import com.learning.recipebook.repositories.CategoryRepository;
 import com.learning.recipebook.repositories.RecipeRepository;
 import com.learning.recipebook.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -28,8 +31,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getRecipes());
+        log.debug("Loading bootstrap data");
     }
 
     private List<Recipe> getRecipes(){
@@ -117,12 +122,12 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         guacRecipe.setNotes(guacNotes);
 
-        guacRecipe.getIngredient().add(new Ingredient("ripe avocados",new BigDecimal(2),eachUom, guacRecipe));
-        guacRecipe.getIngredient().add(new Ingredient("Kosher salt",new BigDecimal(.5),teaSpoonUom, guacRecipe));
-        guacRecipe.getIngredient().add(new Ingredient("fresh lime juice or lemon juice",new BigDecimal(1),tableSpoonUom, guacRecipe));
-        guacRecipe.getIngredient().add(new Ingredient("minced red onion or thinly sliced green onion",new BigDecimal(2),tableSpoonUom, guacRecipe));
-        guacRecipe.getIngredient().add(new Ingredient("serrano chiles, stems and seeds removed, minced",new BigDecimal(2),eachUom, guacRecipe));
-        guacRecipe.getIngredient().add(new Ingredient("cilantro (leaves and tender stems), finely chopped\n",new BigDecimal(2),teaSpoonUom, guacRecipe));
+        guacRecipe.addIngredient(new Ingredient("ripe avocados",new BigDecimal(2),eachUom));
+        guacRecipe.addIngredient(new Ingredient("Kosher salt",new BigDecimal(.5),teaSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("fresh lime juice or lemon juice",new BigDecimal(1),tableSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("minced red onion or thinly sliced green onion",new BigDecimal(2),tableSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("serrano chiles, stems and seeds removed, minced",new BigDecimal(2),eachUom));
+        guacRecipe.addIngredient(new Ingredient("cilantro (leaves and tender stems), finely chopped\n",new BigDecimal(2),teaSpoonUom));
 
         guacRecipe.getCategories().add(americanCategory);
         guacRecipe.getCategories().add(mexicanCategory);
@@ -152,12 +157,12 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         tacoRecipe.setNotes(tacoNotes);
 
-        tacoRecipe.getIngredient().add(new Ingredient("ripe avocados",new BigDecimal(2),eachUom,tacoRecipe));
-        tacoRecipe.getIngredient().add(new Ingredient("Kosher salt",new BigDecimal(.5),teaSpoonUom,tacoRecipe));
-        tacoRecipe.getIngredient().add(new Ingredient("fresh lime juice or lemon juice",new BigDecimal(1),tableSpoonUom,tacoRecipe));
-        tacoRecipe.getIngredient().add(new Ingredient("minced red onion or thinly sliced green onion",new BigDecimal(2),tableSpoonUom,tacoRecipe));
-        tacoRecipe.getIngredient().add(new Ingredient("serrano chiles, stems and seeds removed, minced",new BigDecimal(2),eachUom,tacoRecipe));
-        tacoRecipe.getIngredient().add(new Ingredient("cilantro (leaves and tender stems), finely chopped\n",new BigDecimal(2),teaSpoonUom,tacoRecipe));
+        tacoRecipe.addIngredient(new Ingredient("ripe avocados",new BigDecimal(2),eachUom));
+        tacoRecipe.addIngredient(new Ingredient("Kosher salt",new BigDecimal(.5),teaSpoonUom));
+        tacoRecipe.addIngredient(new Ingredient("fresh lime juice or lemon juice",new BigDecimal(1),tableSpoonUom));
+        tacoRecipe.addIngredient(new Ingredient("minced red onion or thinly sliced green onion",new BigDecimal(2),tableSpoonUom));
+        tacoRecipe.addIngredient(new Ingredient("serrano chiles, stems and seeds removed, minced",new BigDecimal(2),eachUom));
+        tacoRecipe.addIngredient(new Ingredient("cilantro (leaves and tender stems), finely chopped\n",new BigDecimal(2),teaSpoonUom));
 
         tacoRecipe.getCategories().add(americanCategory);
         tacoRecipe.getCategories().add(mexicanCategory);

@@ -5,13 +5,14 @@ import com.learning.recipebook.domain.UnitOfMeasure;
 import com.learning.recipebook.repositories.CategoryRepository;
 import com.learning.recipebook.repositories.UnitOfMeasureRepository;
 import com.learning.recipebook.service.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
 
 @Controller
+@Slf4j
 public class IndexController {
 
 
@@ -24,11 +25,8 @@ public class IndexController {
     @RequestMapping({"","/","/index"})
     public String getIndexPage(Model model){
 
+        log.debug("Loading index page");
         model.addAttribute("recipeList", recipeService.getRecipes());
-
-
-
-
         return "index";
     }
 }
