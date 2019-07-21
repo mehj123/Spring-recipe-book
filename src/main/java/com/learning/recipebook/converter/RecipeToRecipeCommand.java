@@ -55,4 +55,7 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand>{
 
         return command;
     }
+
+    public void deleteById(Long id) {
+    }
 }
