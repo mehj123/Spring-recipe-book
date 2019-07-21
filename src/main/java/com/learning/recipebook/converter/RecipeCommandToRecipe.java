@@ -1,5 +1,6 @@
 package com.learning.recipebook.converter;
 
+import com.learning.recipebook.command.NotesCommand;
 import com.learning.recipebook.command.RecipeCommand;
 import com.learning.recipebook.domain.Recipe;
 import lombok.Synchronized;
@@ -40,6 +41,10 @@ public class RecipeCommandToRecipe implements Converter<RecipeCommand, Recipe> {
         recipe.setServings(source.getServings());
         recipe.setSource(source.getSource());
         recipe.setUrl(source.getUrl());
+        if(null == source.getNotes()){
+            NotesCommand notesCommand = new NotesCommand();
+            source.setNotes(notesCommand);
+        }
         recipe.setNotes(notesConverter.convert(source.getNotes()));
 
         if (source.getCategories() != null && source.getCategories().size() > 0){
