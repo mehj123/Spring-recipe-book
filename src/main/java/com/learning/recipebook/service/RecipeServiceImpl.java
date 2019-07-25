@@ -1,5 +1,6 @@
 package com.learning.recipebook.service;
 
+import com.learning.recipebook.command.IngredientCommand;
 import com.learning.recipebook.command.RecipeCommand;
 import com.learning.recipebook.converter.RecipeCommandToRecipe;
 import com.learning.recipebook.converter.RecipeToRecipeCommand;
@@ -61,5 +62,10 @@ public class RecipeServiceImpl implements RecipeService {
             throw new RuntimeException("Recipe not found");
         }
         return recipeOptional.get();
+    }
+
+    @Override
+    public IngredientCommand findByRecipeId(long anyLong) {
+        return null;
     }
 }

@@ -82,8 +82,8 @@ public class RecipeCommandToRecipeTest {
         IngredientCommand ingredient2 = new IngredientCommand();
         ingredient2.setId(INGRED_ID_2);
 
-        recipeCommand.getIngredients().add(ingredient);
-        recipeCommand.getIngredients().add(ingredient2);
+        recipeCommand.getIngredient().add(ingredient);
+        recipeCommand.getIngredient().add(ingredient2);
 
         //when
         Recipe recipe  = converter.convert(recipeCommand);

@@ -1,5 +1,6 @@
 package com.learning.recipebook.service;
 
+import com.learning.recipebook.command.IngredientCommand;
 import com.learning.recipebook.command.RecipeCommand;
 import com.learning.recipebook.domain.Recipe;
 
@@ -12,4 +13,6 @@ public interface RecipeService {
     RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand);
     RecipeCommand findCommandById(Long l);
     void deleteById(Long id);
+
+    IngredientCommand findByRecipeId(long anyLong);
 }

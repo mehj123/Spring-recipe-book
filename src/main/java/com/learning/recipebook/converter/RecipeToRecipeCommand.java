@@ -50,12 +50,9 @@ public class RecipeToRecipeCommand implements Converter<Recipe, RecipeCommand>{
 
         if (source.getIngredient() != null && source.getIngredient().size() > 0){
             source.getIngredient()
-                    .forEach(ingredient -> command.getIngredients().add(ingredientConverter.convert(ingredient)));
+                    .forEach(ingredient -> command.getIngredient().add(ingredientConverter.convert(ingredient)));
         }
 
         return command;
-    }
-
-    public void deleteById(Long id) {
     }
 }
