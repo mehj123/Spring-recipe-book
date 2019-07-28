@@ -94,7 +94,7 @@
                                     <h1 class="panel-title">Ingredients</h1>
                                 </div>
                                 <div class="col-md-1">
-                                    <a class="btn btn-default" href="#" role="button">View</a>
+                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                     <ul>
                                         <li th:remove="all">1 Cup of milk</li>
                                         <li th:remove="all">1 Teaspoon of chocolate</li>
-                                        <li th:each="ingredient : ${recipe.ingredients}"
+                                        <li th:each="ingredient : ${recipe.ingredient}"
                                             th:text="${(ingredient.getAmount() +
                                         ' ' + ingredient.getUom().getDescription() +
                                         ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
