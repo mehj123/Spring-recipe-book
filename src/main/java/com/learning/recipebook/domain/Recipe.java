@@ -3,6 +3,7 @@ package com.learning.recipebook.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,4 +50,22 @@ public class Recipe {
         return this;
     }
 
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", prepTime=" + prepTime +
+                ", cookTime=" + cookTime +
+                ", source='" + source + '\'' +
+                ", url='" + url + '\'' +
+                ", servings=" + servings +
+                ", directions='" + directions + '\'' +
+                ", difficulty=" + difficulty +
+                ", image=" + Arrays.toString(image) +
+                ", categories=" + categories +
+                ", ingredient=" + ingredient +
+                ", notes=" + notes +
+                '}';
+    }
 }
