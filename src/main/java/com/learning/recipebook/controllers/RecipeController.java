@@ -18,7 +18,7 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/{id}/show")
-    public String showById(@PathVariable String id, Model model){
+    public String showById(@PathVariable String id, Model model) throws Exception{
         model.addAttribute("recipe", recipeService.findById(Long.valueOf(id)));
         return "recipe/show";
 
@@ -53,6 +53,16 @@ public class RecipeController {
     public ModelAndView handleNotFound(Exception e){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", e);
+        return  modelAndView;
+
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleBadRequest(Exception e){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("400error");
         modelAndView.addObject("exception", e);
         return  modelAndView;
 
