@@ -4,6 +4,7 @@ package com.learning.recipebook.service;
 import com.learning.recipebook.converter.RecipeCommandToRecipe;
 import com.learning.recipebook.converter.RecipeToRecipeCommand;
 import com.learning.recipebook.domain.Recipe;
+import com.learning.recipebook.exceptions.NotFoundException;
 import com.learning.recipebook.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,6 +77,13 @@ public class RecipeServiceImplTest {
         recipeService.deleteById(idToDelete);
 
         verify(recipeRepository,times(1)).deleteById(idToDelete);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdNotFoundTest() throws Exception{
+        Optional<Recipe> recipeOptional = Optional.empty();
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+        Recipe recipeReturned =  recipeService.findById(1L);
     }
 
 }
