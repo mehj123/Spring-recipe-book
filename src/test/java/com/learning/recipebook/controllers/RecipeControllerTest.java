@@ -69,6 +69,11 @@ public class RecipeControllerTest {
                 .param("id", "")
                 .param("description", "some string")
                 .param("directions","My directions")
+                .param("servings","4")
+                .param("cookTime","100")
+                .param("prepTime","45")
+                .param("url","http://www.bbc.co.uk")
+
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/show/"));
