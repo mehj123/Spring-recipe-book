@@ -3,12 +3,17 @@ package com.learning.recipebook.controllers;
 import com.learning.recipebook.command.RecipeCommand;
 import com.learning.recipebook.exceptions.NotFoundException;
 import com.learning.recipebook.service.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Controller
 public class RecipeController {
     private final RecipeService recipeService;
@@ -16,6 +21,8 @@ public class RecipeController {
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
+
+    private static final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
 
     @GetMapping("/recipe/{id}/show")
     public String showById(@PathVariable String id, Model model) throws Exception{
@@ -31,7 +38,13 @@ public class RecipeController {
     }
 
     @PostMapping("recipe")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand recipeCommand){
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+            return RECIPE_RECIPEFORM_URL;
+        }
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
         return "redirect:/recipe/"+savedCommand.getId()+"/show/";
     }
@@ -58,13 +71,5 @@ public class RecipeController {
 
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleBadRequest(Exception e){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("400error");
-        modelAndView.addObject("exception", e);
-        return  modelAndView;
 
-    }
 }
